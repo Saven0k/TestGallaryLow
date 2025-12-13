@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Artist {
+  id           String    @id @default(uuid())
+  name         String
+  surname      String
+  second_name  String
+  email        String    @unique
+  password     String
+  avatar_path  String?
+  country      String
+  city         String
+  date_birthday DateTime
+  biography    String    @map("bioghrapy") // Исправляем опечатку в названии колонки
+  phone_number String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  genres       ArtistGenre[]
+  paintings    Painting[]
+  exhibitions  Exhibition[]
+
+  @@map("artist")
+}
+
+model Painting {
+  id             String   @id @default(uuid())
+  title          String
+  description    String   @db.VarChar(1500)
+  date_published DateTime
+  cost           Float
+  country        String
+  city           String
+  image_path     String
+  likes          Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Связи
+  author_id     String
+  author        Artist      @relation(fields: [author_id], references: [id], onDelete: Cascade)
+  genre_id      String
+  genre         Genre       @relation(fields: [genre_id], references: [id])
+  
+  exhibitions   PaintingExhibition[]
+
+  @@map("painting")
+}
+
+model Genre {
+  id     String @id @default(uuid())
+  title  String?
+  
+  artists    ArtistGenre[]
+  paintings  Painting[]
+  exhibitions Exhibition[]
+
+  @@map("genre")
+}
+
+model Exhibition {
+  id          String   @id @default(uuid()) // Меняем на UUID вместо AUTO_INCREMENT
+  title       String
+  description String
+  address     String
+  country     String
+  city        String
+  date        DateTime
+  cost        Float
+  visitor_count Int    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  author_id   String
+  author      Artist  @relation(fields: [author_id], references: [id])
+  genre_id    String
+  genre       Genre   @relation(fields: [genre_id], references: [id])
+  
+    paintings   PaintingExhibition[]
+  guests      ExhibitionGuest[]
+
+  @@map("exhibition")
+}
+
+model Guest {
+  id           String @id @default(uuid())
+  name         String
+  second_name  String
+  email        String
+  phone_number String
+  password       String
+  createdAt    DateTime @default(now())
+
+  exhibitions ExhibitionGuest[]
+
+  @@map("guest")
+}
+
+
+model ArtistGenre {
+  artist_id String
+  genre_id  String
+  
+  artist Artist @relation(fields: [artist_id], references: [id], onDelete: Cascade)
+  genre  Genre  @relation(fields: [genre_id], references: [id], onDelete: Cascade)
+  
+  @@id([artist_id, genre_id])
+  @@map("artist_genre")
+}
+
+model PaintingExhibition {
+  painting_id   String
+  exhibition_id String
+  
+  painting   Painting   @relation(fields: [painting_id], references: [id], onDelete: Cascade)
+  exhibition Exhibition @relation(fields: [exhibition_id], references: [id], onDelete: Cascade)
+  
+  @@id([painting_id, exhibition_id])
+  @@map("painting_exhibition")
+}
+
+model ExhibitionGuest {
+  exhibition_id String
+  guest_id      String
+  
+  exhibition Exhibition @relation(fields: [exhibition_id], references: [id], onDelete: Cascade)
+  guest      Guest      @relation(fields: [guest_id], references: [id], onDelete: Cascade)
+  
+  @@id([exhibition_id, guest_id])
+  @@map("exhibition_guest")
+}
