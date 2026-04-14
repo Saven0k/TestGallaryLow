@@ -1,0 +1,143 @@
+.form {
+    max-width: 400px;
+    width: 100%;
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: formAppear 0.6s ease-out;
+}
+
+.form__title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #2d3748;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.form__inputs {
+    margin-bottom: 25px;
+}
+
+.form__input-box {
+    margin-bottom: 20px;
+}
+
+.form__label {
+    display: block;
+    margin-bottom: 8px;
+    color: #4a5568;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.form__input-box:focus-within .form__label {
+    color: #667eea;
+}
+
+.form__input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: #f8fafc;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.form__input:focus {
+    border-color: #667eea;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+}
+
+.form__btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.form__btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.form__link {
+    display: block;
+    text-align: center;
+    color: #667eea;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.form__error {
+    color: red;
+    font-size: 14px;
+}
+
+.form__input--error {
+    border-color: #fc8181 !important;
+}
+
+/* Анимация */
+@keyframes formAppear {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптив */
+@media (max-width: 480px) {
+    .form {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+}
+
+/* Стили для ссылки регистрации */
+.form__register-link {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.form__register-text {
+    color: #4a5568;
+    font-size: 14px;
+}
+
+.form__register-link-btn {
+    color: #667eea;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.form__register-link-btn:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}

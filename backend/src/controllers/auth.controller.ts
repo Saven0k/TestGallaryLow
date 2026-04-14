@@ -10,7 +10,7 @@ export class AuthController {
             if (!artistData.email || !artistData.password) {
                 return res.status(400).json({
                     success: false,
-                    message: 'Електронная почта и пароль  обязательны'
+                    message: 'Электронная почта и пароль  обязательны'
                 });
             }
 

@@ -56,7 +56,7 @@ export class AuthService {
 
             return {
                 success: true,
-                message: 'Художник успешно зарегестрирован',
+                message: 'Художник успешно зарегистрирован',
                 user: {
                     id: artist.id,
                     email: artist.email,
@@ -217,7 +217,7 @@ export class AuthService {
             if (!user) {
                 return {
                     success: false,
-                    message: 'Пользоветель не найден'
+                    message: 'Пользователь не найден'
                 };
             }
 

@@ -1,4 +1,4 @@
-import { GuestService } from "../services/guest.serivce";
+import { GuestService } from "../services/guest.service";
 import { Response, Request } from "express";
 export class GuestController {
     static async getAllGuests(req: Request, res: Response) {
